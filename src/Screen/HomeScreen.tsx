@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator, StatusBar } from "react-native";
+import { View, Text, TouchableOpacity, Image, FlatList, StatusBar } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useTheme } from "./context/ThemeContexts"; 
 import styles from "./styles/homeStyles";
-
+import ContentLoader, { Rect } from "react-content-loader/native";
 
 // Tipado para la navegación
 type RootStackParamList = {
@@ -38,13 +38,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const { isDarkMode } = useTheme();
 
+  // Simular el tiempo de espera de 5 segundos
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
         
-        // Validar que 'list' exista y sea un array antes de filtrar
         if (Array.isArray(data.list)) {
           setForecast(data.list.filter((_: any, i: number) => i % 8 === 0));
         } else {
@@ -53,7 +53,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       } catch (error) {
         console.error("Error fetching weather data:", error);
       } finally {
-        setLoading(false);
+        setTimeout(() => setLoading(false), 2000);
       }
     };
     fetchWeather();
@@ -65,6 +65,40 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     { name: "BuscarPaciente", icon: require("../../assets/patients.png"), label: "Buscar Pacientes" },
     { name: "Encuentranos", icon: require("../../assets/map.png"), label: "Encuentranos" },
   ];
+
+  const WeatherSkeleton = () => (
+    <View style={[styles.weatherCard, isDarkMode && styles.darkWeatherCard, {
+      marginHorizontal: 5,
+      borderRadius: 8,
+      overflow: 'hidden',
+      elevation: 2,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 4,
+    }]}>
+      <ContentLoader
+        speed={1.5}
+        width={120}
+        height={150}
+        viewBox="0 0 120 150"
+        backgroundColor={isDarkMode ? '#3a3a3a' : '#f0f0f0'}
+        foregroundColor={isDarkMode ? '#444444' : '#e3e3e3'}
+      >
+        {/* Fondo de la tarjeta */}
+        <Rect x="0" y="0" rx="8" ry="8" width="120" height="150" />
+        
+        {/* Fecha */}
+        <Rect x="10" y="15" rx="4" ry="4" width="100" height="20" />
+        
+        {/* Temperatura */}
+        <Rect x="20" y="50" rx="4" ry="4" width="80" height="40" />
+        
+        {/* Descripción del clima */}
+        <Rect x="15" y="105" rx="4" ry="4" width="90" height="30" />
+      </ContentLoader>
+    </View>
+  );
 
   return (
     <View style={[styles.container, isDarkMode && styles.darkContainer]}>
@@ -86,7 +120,14 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       <View style={[styles.weatherContainer, isDarkMode && styles.darkWeatherContainer]}>
         <Text style={[styles.weatherTitle, isDarkMode && styles.darkText]}>Pronóstico del Clima</Text>
         {loading ? (
-          <ActivityIndicator size="large" color={isDarkMode ? "#ffffff" : "#0000ff"} />
+          <FlatList
+            data={[1, 2, 3, 4, 5]}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.weatherList}
+            renderItem={() => <WeatherSkeleton />}
+            keyExtractor={(_, index) => index.toString()}
+          />
         ) : (
           <FlatList
             data={forecast}
@@ -99,10 +140,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                 <Text style={[styles.weatherDate, isDarkMode && styles.darkText]}>
                   {new Date(item.dt_txt).toLocaleDateString()}
                 </Text>
-                <Image
-                  source={{ uri: `https://openweathermap.org/img/wn/${item.weather?.[0]?.icon}@2x.png` }}
-                  style={styles.weatherIcon}
-                />
                 <Text style={[styles.weatherTemp, isDarkMode && styles.darkText]}>
                   {item.main?.temp?.toFixed(1)}°C
                 </Text>
@@ -116,8 +153,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       </View>
 
       <TouchableOpacity style={styles.chatButton} onPress={() => navigation.navigate("Chat")}>
-  <Text style={styles.chatButtonText}>Chat en tiempo real</Text>
-</TouchableOpacity>
+        <Text style={styles.chatButtonText}>Chat en tiempo real</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.botButton} onPress={() => navigation.navigate("ChatBot")}>
         <Image source={require("../../assets/bot.png")} style={styles.botImage} />
