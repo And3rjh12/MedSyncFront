@@ -111,8 +111,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       </View>
 
       <View style={styles.gridContainer}>
-        {buttons.map(({ name, icon, label }) => (
-          <TouchableOpacity key={name} style={[styles.gridItem, isDarkMode && styles.darkGridItem]} onPress={() => navigation.navigate(name)}>
+        {buttons.map(({ name , icon, label }) => (
+          <TouchableOpacity key={name} style={[styles.gridItem, isDarkMode && styles.darkGridItem]} onPress={() => navigation.navigate(name )}>
             <Image source={icon} style={styles.iconImage} />
             <Text style={[styles.gridText, isDarkMode && styles.darkText]}>{label}</Text>
           </TouchableOpacity>
@@ -154,13 +154,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         )}
       </View>
 
-      <TouchableOpacity style={styles.chatButton} onPress={() => navigation.navigate("Chat")}>
-        <Text style={styles.chatButtonText}>Chat en tiempo real</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.botButton} onPress={() => navigation.navigate("ChatBot")}>
-        <Image source={require("../../assets/bot.png")} style={styles.botImage} />
-      </TouchableOpacity>
+     
     </View>
   );
 };

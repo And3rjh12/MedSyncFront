@@ -10,14 +10,12 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
+import Toast from 'react-native-toast-message';
 import axios from "axios";
 import { useTheme } from "./context/ThemeContexts";
 import { Picker } from "@react-native-picker/picker";
 import { Calendar, DateObject } from "react-native-calendars";
-
-
-
-
+import { sendAppointmentNotification } from "./utils/notificationHandler";
 interface Doctor {
   id: string;
   name: string;
@@ -76,6 +74,20 @@ export default function AppointmentScreen() {
     Pediatrics: 40,
     "General Medicine": 30,
   };
+
+  const showAppointmentNotification = (patientName: string, doctorName: string, date: string, time: string) => {
+    Toast.show({
+      type: 'success',
+      position: 'top',
+      text1: '¡Cita Agendada Exitosamente!',
+      text2: `${patientName} tiene una cita con ${doctorName} el ${date} a las ${time}`,
+      visibilityTime: 4000,
+      autoHide: true,
+      topOffset: 30,
+      bottomOffset: 40,
+    });
+  };
+
 
   const formatDateForBackend = (date: string) => {
     const dateObj = new Date(date);
@@ -186,6 +198,7 @@ export default function AppointmentScreen() {
       if (response.data.message === "Cita agendada exitosamente") {
         alert("Cita agendada exitosamente");
         setAppointmentBooked(true);
+        await sendAppointmentNotification(selectedPatient.name,selectedDoctor.name, selectedDate, selectedTime);
 
         // Guardar los detalles de la cita
         setAppointmentDetails({
@@ -259,6 +272,8 @@ export default function AppointmentScreen() {
     }
   };
 
+  
+
   useEffect(() => {
     loadPatients();
   }, []);
@@ -287,6 +302,7 @@ export default function AppointmentScreen() {
   };
 
   return (
+    <>
     <ScrollView style={[styles.container, isDarkMode && styles.darkContainer]}>
       <Text style={[styles.title, isDarkMode && styles.darkText]}>
         Agendar Cita
@@ -491,6 +507,8 @@ export default function AppointmentScreen() {
         </View>
       )}
     </ScrollView>
+    <Toast />
+    </>
   );
 }
 

@@ -1,8 +1,10 @@
 import { registerRootComponent } from 'expo';
-
 import App from './App';
+import * as Notifications from 'expo-notifications';
 
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
+// Listener para notificaciones cuando la app está en segundo plano
+Notifications.addNotificationResponseReceivedListener(response => {
+  console.log('Notificación recibida:', response);
+});
+
 registerRootComponent(App);

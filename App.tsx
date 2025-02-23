@@ -13,6 +13,7 @@ import AppointmentScreen from "./src/Screen/appointmentScreen";
 import PatientSearchScreen from "./src/Screen/searchPatient";
 import DoctorSearchScreen from "./src/Screen/searchDoctor";
 import DoctorScheduleScreen from "./src/Screen/DoctorScheduleScreen";
+import Toast from 'react-native-toast-message';
 
 
 const Stack = createStackNavigator();
@@ -46,6 +47,7 @@ function MainNavigator() {
           <Stack.Screen name="Encuentranos" component={MapScreen} options={{ title: "Mapa de Sucursales" }} />
         </Stack.Navigator>
       </NavigationContainer>
+      <Toast/>
     </>
   );
 }
