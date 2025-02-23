@@ -12,6 +12,7 @@ import MapScreen from "./src/Screen/MapScreen";
 import AppointmentScreen from "./src/Screen/appointmentScreen";
 import PatientSearchScreen from "./src/Screen/searchPatient";
 import DoctorSearchScreen from "./src/Screen/searchDoctor";
+import DoctorScheduleScreen from "./src/Screen/DoctorScheduleScreen";
 
 
 const Stack = createStackNavigator();
@@ -41,6 +42,7 @@ function MainNavigator() {
           <Stack.Screen name="Agendamiento" component={AppointmentScreen} options={{ title: "Agendamiento" }} />
           <Stack.Screen name="BuscarPaciente" component={PatientSearchScreen} options={{ title: "Buscar Paciente" }} />
           <Stack.Screen name="BuscarDoctor" component={DoctorSearchScreen} options={{ title: "Buscar Doctor" }} />
+          <Stack.Screen name="DoctorHorario" component={DoctorScheduleScreen} options={{ title: "Dotor Horario" }} />
           <Stack.Screen name="Encuentranos" component={MapScreen} options={{ title: "Mapa de Sucursales" }} />
         </Stack.Navigator>
       </NavigationContainer>

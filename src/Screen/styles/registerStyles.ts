@@ -16,6 +16,29 @@ const registerStyles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
+  scrollViewContent: {
+    flexGrow: 1,
+    paddingBottom: 40,
+    alignItems: 'center',
+    minHeight: '100%',
+    paddingHorizontal: 20,
+  },
+
+  pickerContainer: {
+    width: '100%',
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    overflow: 'hidden',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
   darkSlide: {
     backgroundColor: "#121212",
   },

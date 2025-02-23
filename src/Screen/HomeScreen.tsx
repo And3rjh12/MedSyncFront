@@ -12,6 +12,7 @@ type RootStackParamList = {
   BuscarDoctor: undefined;
   BuscarPaciente: undefined;
   Encuentranos: undefined;
+  DoctorHorario:undefined;
   Chat: undefined;
   ChatBot: undefined;
 };
@@ -63,6 +64,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     { name: "Agendamiento", icon: require("../../assets/calendar.jpg"), label: "Agendar citas" },
     { name: "BuscarDoctor", icon: require("../../assets/stethoscope.jpg"), label: "Buscar Doctor" },
     { name: "BuscarPaciente", icon: require("../../assets/patients.png"), label: "Buscar Pacientes" },
+    { name: "DoctorHorario", icon: require("../../assets/horario.png"), label: "Doctor Horario" },
     { name: "Encuentranos", icon: require("../../assets/map.png"), label: "Encuentranos" },
   ];
 
@@ -79,8 +81,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }]}>
       <ContentLoader
         speed={1.5}
-        width={120}
-        height={150}
+        width={90}
+        height={90}
         viewBox="0 0 120 150"
         backgroundColor={isDarkMode ? '#3a3a3a' : '#f0f0f0'}
         foregroundColor={isDarkMode ? '#444444' : '#e3e3e3'}

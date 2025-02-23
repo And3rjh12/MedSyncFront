@@ -10,6 +10,15 @@ const homeStyles = StyleSheet.create({
   darkContainer: {
     backgroundColor: "#121212",
   },
+ 
+  scrollViewContent: {
+    flexGrow: 1, // Esto asegura que el contenido pueda ocupar toda la altura disponible
+    alignItems: 'center', // Alineación de los elementos hijos
+    justifyContent: 'flex-start', // Asegura que el contenido comience desde la parte superior
+  },
+  darkScrollViewContent: {
+    backgroundColor: '#444',
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -51,13 +60,13 @@ const homeStyles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    width: "100%",
+    width: "95%",
     marginTop: 20,
     
   },
   gridItem: {
     width: "42%",
-    height: 120,
+    height: 90,
     backgroundColor: "#ffffff",
     margin: 10,
     borderRadius: 15,
@@ -83,8 +92,8 @@ const homeStyles = StyleSheet.create({
     color: "#fff",
   },
   iconImage: {
-    width: 50,
-    height: 50,
+    width: 45,
+    height: 45,
     resizeMode: "contain",
     
   },
@@ -173,8 +182,8 @@ const homeStyles = StyleSheet.create({
     position: "absolute",
     bottom: 30,
     right: 20,
-    width: 70,
-    height: 70,
+    width: 50,
+    height: 50,
     borderRadius: 35,
     backgroundColor: "#ffffff",
     alignItems: "center",
@@ -189,8 +198,8 @@ const homeStyles = StyleSheet.create({
     backgroundColor: "#333",
   },
   botImage: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     resizeMode: "contain",
   },
   
